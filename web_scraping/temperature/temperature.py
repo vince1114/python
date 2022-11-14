@@ -12,7 +12,8 @@ driver.get('http://google.com')
 
 assert "Google" in driver.title #ensure it is in the page
 
-search_item = input("Please enter valid city or country: ") + " temperature"
+user_input = input("Please enter valid city or country: ")
+search_item = user_input + " temperature"
 
 search_Elem = driver.find_element(By.NAME,'q')
 search_Elem.clear() #clear all the pre-filled, just in case
@@ -33,11 +34,15 @@ if(unit == "fahrenheit" or unit == "f"):
 elif(unit == "celcius" or unit == "c"):
     unit_button = driver.find_element(By.XPATH, '//span[@aria-label="°Celsius"]')
     output_unit = celcius_unit
+else:
+    unit_button = driver.find_element(By.XPATH, '//span[@aria-label="°Fahrenheit"]')
+    output_unit = fahrenheit_unit
 
 unit_button.click() 
 degree = driver.find_element(By.XPATH, "//div[@class='vk_bk TylWce SGNhVe']").text
 
 
-print(f"The current temperature in {search_item} is {degree}{output_unit}")
+print(f"The current temperature in {user_input} is {degree}{output_unit}")
 
+driver.quit()
 
